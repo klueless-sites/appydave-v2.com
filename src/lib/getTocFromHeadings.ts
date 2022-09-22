@@ -34,24 +34,25 @@
 // { depth: 2, slug: 'sub-heading-d', text: 'Sub heading D' }
 // ]
 
+// THIS CODE MAY BE A WAIST, It might be better to leave headings alone
 interface IAstroHeading {
   depth: number;
   slug: string;
   text: string
 }
 
-interface IHeading {
-  slug: string;
-  text: string;
+interface IHeading extends IAstroHeading {
   children: IHeading[];
 }
 
 class Heading implements IHeading {
+  depth: number;
   slug: string;
   text: string;
   children: IHeading[];
 
-  constructor(slug: string, text: string) {
+  constructor(depth: number, slug: string, text: string) {
+    this.depth = depth;
     this.slug = slug;
     this.text = text;
     this.children = [];
@@ -59,10 +60,10 @@ class Heading implements IHeading {
 }
 
 // Table of contents as Nested Object from Headings 1 through 6
-export default function getTocFromHeadings(headings: IAstroHeading[]) {
+export default function getTocFromHeadings(headings: IAstroHeading[], startDepth: number = 1): IHeading[] {
   const toc: IHeading[] = [];
   let current = toc;
-  let lastDepth = 1;
+  let lastDepth = startDepth;
   for (const heading of headings) {
     // console.log(heading.text);
     // console.log(heading.depth, lastDepth);
@@ -74,7 +75,7 @@ export default function getTocFromHeadings(headings: IAstroHeading[]) {
         current = current[current.length - 1].children;
       }
     }
-    current.push(new Heading(heading.slug, heading.text));
+    current.push(new Heading(heading.depth, heading.slug, heading.text));
     lastDepth = heading.depth;
   }
   return toc;

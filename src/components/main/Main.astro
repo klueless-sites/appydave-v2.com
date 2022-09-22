@@ -3,6 +3,13 @@ import Article from './Article.astro'
 import NextPage from './NextPage.astro';
 import PreviousPage from './PreviousPage.astro';
 import OnThisPage from './OnThisPage.astro';
+
+export interface Props {
+  headings: any[];
+}
+
+const { headings } = Astro.props as Props;
+
 ---
 <div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
   <div class="hidden lg:relative lg:block lg:flex-none">
@@ -23,8 +30,6 @@ import OnThisPage from './OnThisPage.astro';
     </dl>
   </div>
   <div class="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
-    <nav aria-labelledby="on-this-page-title" class="w-56">
-      <OnThisPage />
-    </nav>
+    <OnThisPage heading='On this page' headings={headings}/>
   </div>
 </div>

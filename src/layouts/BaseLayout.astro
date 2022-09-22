@@ -9,6 +9,8 @@ import Hero from '~/components/Hero.astro';
 import Header from '~/components/header/Header.astro';
 import Main from '~/components/main/Main.astro';
 
+import getToc from '~/lib/getTocFromHeadings';
+
 export interface Props {
   title: string;
   description: string;
@@ -34,6 +36,13 @@ const {
   hero = Astro.props.content.hero || false,
 } = Astro.props as Props;
 
+// const toc = getToc(Astro.props.headings);
+// console.log(Object.keys(Astro.props))
+// console.log(Object.keys(Astro.props.content))
+// console.log(Astro.props.headings)
+// console.log(getToc(Astro.props.headings))
+// console.log(JSON.stringify(getToc(Astro.props.headings), null, 2))
+// <pre><code>{JSON.stringify(getToc(Astro.props.headings), null, 2)}</code></pre>
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +57,7 @@ const {
 <body class="bg-white dark:bg-slate-900">
   <Header />
   {hero && (<Hero />)}
-  <Main>
+  <Main headings={Astro.props.headings}>
     <slot />
   </Main>  
 </body>

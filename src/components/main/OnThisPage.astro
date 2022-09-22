@@ -1,14 +1,46 @@
 ---
 import getToc from '~/lib/getTocFromHeadings';
 
+// console.log(Object.keys(Astro.props))
+// console.log(Object.keys(Astro.props.content))
+// console.log(Astro.props.headings)
+// console.log(getToc(Astro.props.headings))
+// <pre><code>{JSON.stringify(getToc(Astro.props.headings), null, 2)}</code></pre>
+export interface Props {
+  heading: string;
+  headings: any[];
+}
+
+const { heading, headings } = Astro.props as Props;
+
+let filterHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const tocHeadings = getToc(filterHeadings, 2);
+
+console.log(tocHeadings);
 ---
-<h2 id="on-this-page-title" class="font-display text-sm font-medium text-slate-900 dark:text-white">
-  On this page
-</h2>
-<ol role="list" class="mt-4 space-y-3 text-sm">
-  <pre>
-    <code>
-      put stuff here
-    </code>
-  </pre>
-</ol>
+<nav aria-labelledby="on-this-page-title" class="w-56">
+  { tocHeadings.length > 0 && (
+    <h2 id="on-this-page-title" class="font-display text-sm font-medium text-slate-900 dark:text-white">
+      {heading}
+    </h2>
+    <ol role="list" class="mt-4 space-y-3 text-sm">
+      {tocHeadings.map((heading) => (
+        <li>
+          <a
+            href={`#${heading.slug}`}
+            class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))
+      }
+    </ol>
+  )}
+</nav>
+
+<pre>
+  <code>
+    {JSON.stringify(tocHeadings, null, 2)}
+  </code>
+</pre>
