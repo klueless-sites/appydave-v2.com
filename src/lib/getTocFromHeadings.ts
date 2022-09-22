@@ -59,7 +59,7 @@ class Heading implements IHeading {
 }
 
 // Table of contents as Nested Object from Headings 1 through 6
-export default function createTocFromHeadings(headings: IAstroHeading[]) {
+export default function getTocFromHeadings(headings: IAstroHeading[]) {
   const toc: IHeading[] = [];
   let current = toc;
   let lastDepth = 1;
