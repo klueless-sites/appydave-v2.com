@@ -1,0 +1,30 @@
+---
+import Article from './Article.astro'
+import NextPage from './NextPage.astro';
+import PreviousPage from './PreviousPage.astro';
+import OnThisPage from './OnThisPage.astro';
+---
+<div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
+  <div class="hidden lg:relative lg:block lg:flex-none">
+    <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
+    <div class="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
+      <div class="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
+      <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block" />
+      <span>NAVIGATION</span>
+    </div>
+  </div>
+  <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+    <Article>
+      <slot />
+    </Article>
+    <dl class="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
+      <PreviousPage />
+      <NextPage />
+    </dl>
+  </div>
+  <div class="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
+    <nav aria-labelledby="on-this-page-title" class="w-56">
+      <OnThisPage />
+    </nav>
+  </div>
+</div>

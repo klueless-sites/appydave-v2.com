@@ -3,6 +3,7 @@ layout: ~/layouts/BaseLayout.astro
 title: AppyDave
 pageTitle: Home | AppyDave
 description: Software Architect, Fullstack / Micro App Developer and Dancer
+hero: true
 ---
 
 
