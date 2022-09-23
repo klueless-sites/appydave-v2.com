@@ -41,27 +41,85 @@ interface IAstroHeading {
   text: string
 }
 
-interface IHeading extends IAstroHeading {
-  parent: IHeading | null;
-  children: IHeading[];
-}
+// interface IHeading extends IAstroHeading {
+//   parent: IHeading | null;
+//   children: IHeading[];
+// }
 
-class Heading implements IHeading {
+// class Heading implements IHeading {
+//   depth: number;
+//   slug: string;
+//   text: string;
+//   parent: IHeading | null;
+//   children: IHeading[];
+
+//   constructor(depth: number, slug: string, text: string, parent: IHeading | null) {
+//     this.depth = depth;
+//     this.slug = slug;
+//     this.text = text;
+//     this.parent = parent;
+//     this.children = [];
+//   }
+// }
+
+class Heading {
   depth: number;
+  sequence: number;
   slug: string;
   text: string;
-  parent: IHeading | null;
-  children: IHeading[];
+  parent: Heading | null;
+  headings: Heading[] | null;
 
-  constructor(depth: number, slug: string, text: string, parent: IHeading | null) {
+  constructor(depth: number, sequence: number, slug: string, text: string, parent: Heading | null = null) {
     this.depth = depth;
+    this.sequence = sequence;
     this.slug = slug;
     this.text = text;
     this.parent = parent;
-    this.children = [];
+    this.headings = null;
+  }
+
+  parentName(): string {
+    return this.parent?.text || 'NULL';
+  }
+
+  parent_up(): string {
+    let result: string[] = [];
+    let p: Heading | null = this;
+    while (p != null) {
+      result.push(p.parentName());
+      p = p.parent;
+    }
+
+    // reverse sort
+    return result.filter((x) => x).reverse().join(' > ');
+  }
+
+  debug(label: string = 'xxx'): void {
+    console.log(`- ${label} ------------------------------------------------------------`);
+    console.log(`depth : ${this.depth}`);
+    console.log(`sequence : ${this.sequence}`);
+    console.log(`text  : ${this.text}`);
+    console.log(`parent: ${this.parent_up()}`);
+    console.log(`child count: ${this.headings ? this.headings.length : 0}`);
+    console.log(`headings: ${this.headings?.map((h) => h.text).join(', ')}`); 
+  }
+
+  to_h(): any {
+    let result: any = {
+      depth: this.depth,
+      sequence: this.sequence,
+      text: this.text,
+      parent: this.parentName(),
+    };
+
+    if (this.headings) {
+      result.headings = this.headings.map((h) => h.to_h());
+    }
+      
+    return result;
   }
 }
-
 // // Table of contents as Nested Object from Headings 1 through 6
 // export function getTocFromHeadings2(headings: IAstroHeading[], startDepth: number = 1): IHeading[] {
 //   const toc: IHeading[] = [];
