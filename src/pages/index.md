@@ -9,24 +9,7 @@ hero: true
 
 I love building development tools, libraries, microapps and services
 
-# Heading
+# H1
 
-## Sub heading A
+## H2 A
 
-## Sub heading B
-
-## Sub heading C
-
-### Sub - Sub heading C-A
-
-### Sub - Sub heading C-B
-
-#### Sub - Sub - Sub heading C-B-1
-
-### Sub - Sub heading C-B
-
-## Sub heading D
-
-### Sub - Sub heading D-A
-
-### Sub - Sub heading D-B

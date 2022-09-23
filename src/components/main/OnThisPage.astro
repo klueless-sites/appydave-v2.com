@@ -1,5 +1,6 @@
 ---
-import getToc from '~/lib/getTocFromHeadings';
+// import getToc from '~/lib/getTocFromHeadings';
+import { TocBuilder } from '~/lib/getTocFromHeadings';
 
 // console.log(Object.keys(Astro.props))
 // console.log(Object.keys(Astro.props.content))
@@ -13,15 +14,10 @@ export interface Props {
 
 const { heading, headings } = Astro.props as Props;
 
-let filterHeadings = headings; //.filter((heading) => heading.depth === 2 || heading.depth === 3);
-console.log('0o00000000000000000000000')
-const tocHeadings =  getToc(filterHeadings); //, 2);
-
-// console.log('1o00000000000000000000000')
-console.log(filterHeadings);
-// console.log('2o00000000000000000000000')
-// console.log(tocHeadings);
-// console.log('3o00000000000000000000000')
+let filterHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+let builder = new TocBuilder(filterHeadings);
+builder.build();
+let tocHeadings = builder.toc();
 ---
 <nav aria-labelledby="on-this-page-title" class="w-56">
   { tocHeadings.length > 0 && (
