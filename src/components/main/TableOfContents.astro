@@ -14,10 +14,13 @@ export interface Props {
 
 const { heading, headings } = Astro.props as Props;
 
-let filterHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+let filterHeadings = headings; //.filter((heading) => heading.depth === 2 || heading.depth === 3);
 let builder = new TocBuilder(filterHeadings);
 builder.build();
 let tocHeadings = builder.toc();
+console.log(JSON.stringify(tocHeadings, null, 2));
+console.log(JSON.stringify(headings));
+
 ---
 <nav aria-labelledby="on-this-page-title" class="w-56">
   { tocHeadings.length > 0 && (

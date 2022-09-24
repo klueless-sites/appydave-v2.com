@@ -10,3 +10,16 @@ description: Some of my own ideas
 
 I want to write code in Ruby and Translate it to Javascript/Typescrypt
 
+
+## Headings List to Hierarchy
+
+**Why:** Headings can come in all sorts of arrangements from a markdown file.
+
+The need to be converted into TOC
+
+## Rspec support folder
+
+## Build JEST equivelent of RSpec (aka Building an NPM Package in Typescrypt from a Ruby Developer perspective)
+
+- /Users/davidcruwys/dev/kgems/astro_concepts/lib/astro_concepts
+- 

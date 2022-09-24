@@ -2,7 +2,8 @@
 import Article from './Article.astro'
 import NextPage from './NextPage.astro';
 import PreviousPage from './PreviousPage.astro';
-import OnThisPage from './OnThisPage.astro';
+import TableOfContents from './TableOfContents.astro';
+import Navigation from './Navigation.astro';
 
 export interface Props {
   headings: any[];
@@ -17,7 +18,9 @@ const { headings } = Astro.props as Props;
     <div class="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
       <div class="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
       <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block" />
-      <span>NAVIGATION</span>
+      <div class="">
+        <Navigation />
+      </div>
     </div>
   </div>
   <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
@@ -30,6 +33,6 @@ const { headings } = Astro.props as Props;
     </dl>
   </div>
   <div class="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
-    <OnThisPage heading='On this page' headings={headings}/>
+    <TableOfContents heading='On this page' headings={headings}/>
   </div>
 </div>

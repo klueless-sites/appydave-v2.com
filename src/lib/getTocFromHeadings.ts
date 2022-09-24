@@ -126,7 +126,7 @@ export class TocBuilder {
   }
 
   find_closest_parent(heading: Heading): Heading | null {
-    let depth = heading.depth-1;
+    let depth = heading.depth-2;
     
     if (depth < 0) {
       return null;
