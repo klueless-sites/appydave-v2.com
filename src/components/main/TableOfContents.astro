@@ -1,6 +1,6 @@
 ---
-// import getToc from '~/lib/getTocFromHeadings';
-import { TocBuilder } from '~/lib/getTocFromHeadings';
+import Heading from '~/lib/toc/heading';
+import CreateToc from '~/lib/toc/create_toc';
 
 // console.log(Object.keys(Astro.props))
 // console.log(Object.keys(Astro.props.content))
@@ -8,24 +8,27 @@ import { TocBuilder } from '~/lib/getTocFromHeadings';
 // console.log(getToc(Astro.props.headings))
 // <pre><code>{JSON.stringify(getToc(Astro.props.headings), null, 2)}</code></pre>
 export interface Props {
-  heading: string;
+  title: string;
   headings: any[];
 }
 
-const { heading, headings } = Astro.props as Props;
+const { title, headings } = Astro.props as Props;
 
-let filterHeadings = headings; //.filter((heading) => heading.depth === 2 || heading.depth === 3);
-let builder = new TocBuilder(filterHeadings);
-builder.build();
-let tocHeadings = builder.toc();
+let filterHeadings = headings
+  .filter((heading) => heading.depth === 2 || heading.depth === 3)
+  .map((heading, index) => new Heading(heading.depth, index, heading.text, { slug: heading.slug } ));
+
+const toc = new CreateToc(filterHeadings);
+toc.process();
+let tocHeadings = toc.data();
+
 console.log(JSON.stringify(tocHeadings, null, 2));
-console.log(JSON.stringify(headings));
-
 ---
+
 <nav aria-labelledby="on-this-page-title" class="w-56">
   { tocHeadings.length > 0 && (
     <h2 id="on-this-page-title" class="font-display text-sm font-medium text-slate-900 dark:text-white">
-      {heading}
+      {title}
     </h2>
     <ol role="list" class="mt-4 space-y-3 text-sm">
       {tocHeadings.map((heading) => (
@@ -36,9 +39,9 @@ console.log(JSON.stringify(headings));
             </a>
           </h3>
 
-          {heading.children.length > 0 && (
+          {heading.headings?.length > 0 && (
             <ol role="list" class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400">
-              {heading.children.map((subHeading) => (
+              {heading.headings.map((subHeading: any) => (
                 <li>
                   <a href={`#${subHeading.slug}`} class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
                     {subHeading.text}
@@ -53,9 +56,3 @@ console.log(JSON.stringify(headings));
     </ol>
   )}
 </nav>
-
-<pre>
-  <code>
-    {JSON.stringify(tocHeadings, null, 2)}
-  </code>
-</pre>
