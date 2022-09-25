@@ -30,7 +30,6 @@ export default class CreateToc {
   }
 
   private process_heading(heading: Heading) {
-    console.log(`process_heading: ${heading.text}, depth: ${heading.depth}, current_heading.depth: ${this.current_heading?.depth}`);
     if (this.hierarchy_root === null) {
       return this.new_hierarchy(heading);
     }
