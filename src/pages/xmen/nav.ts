@@ -7,7 +7,7 @@ export default [
     ],
   },
   {
-    title: 'Mre',
+    title: 'Test',
     links: [
       { title: 'Getting started', href: '/' },
       { title: 'Installation', href: '/docs/installation' },

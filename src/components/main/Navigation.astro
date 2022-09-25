@@ -1,5 +1,5 @@
 ---
-const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
+const navPath = `../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
 const navigation = (await import(/* @vite-ignore */ navPath)).default;
 
 // console.log(JSON.stringify(nav, null, 2));
@@ -8,6 +8,7 @@ const navigation = (await import(/* @vite-ignore */ navPath)).default;
 // console.log(Astro.url);
 // console.log(Astro.url.pathname);
 ---
+
 <div class="hidden lg:relative lg:block lg:flex-none">
   <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden"></div>
   <div class="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
