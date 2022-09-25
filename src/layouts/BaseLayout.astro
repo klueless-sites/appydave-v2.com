@@ -57,7 +57,7 @@ const {
 <body class="bg-white dark:bg-slate-900">
   <Header />
   {hero && (<Hero />)}
-  <Main title={} headings={Astro.props.headings}>
+  <Main title={title} headings={Astro.props.headings}>
     <slot />
   </Main>  
 </body>

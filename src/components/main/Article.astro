@@ -1,5 +1,16 @@
 ---
+import { Section } from "~/lib/types";
+
 import Prose from '../Prose.astro'
+import ArticleSection from './ArticleSection.astro'
+import ArticleTitle from './ArticleTitle.astro'
+
+export interface Props {
+  section?: Section;
+  title?: string;
+}
+
+const { section = new Section('xmen are cool'), title = "It's good to be the king" } = Astro.props as Props;
 
 // {(title || section) && (
 //     <header class="mb-9 space-y-1">
@@ -19,14 +30,8 @@ import Prose from '../Prose.astro'
 ---
 <article>
   <header class="mb-9 space-y-1">
-    <p class="font-display text-sm font-medium text-sky-500">
-      <!-- Need to get this from the navigation link title -->
-      Section Title
-    </p>
-    <h1 class="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
-      <!-- Need to get this from the page title -->
-      This Title
-    </h1>
+    {section && (<ArticleSection section={section} />)}
+    {title && (<ArticleTitle title={title} />)}
   </header>
   <Prose>
     <slot />
