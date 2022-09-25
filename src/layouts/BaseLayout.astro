@@ -11,6 +11,7 @@ import Main from '~/components/main/Main.astro';
 
 export interface Props {
   title: string;
+  pageTitle: string;
   description: string;
   image?: string;
   next?: string;
@@ -23,6 +24,7 @@ export interface Props {
 }
 const { 
   title = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
+  pageTitle = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
   description = Astro.props.content.description || SITE.description,
   image,
   next,
@@ -45,7 +47,7 @@ const {
 <!DOCTYPE html>
 <html lang="en">
 <Head 
-  title={title}
+  title={pageTitle}
   description={description}
   canonicalURL={canonicalURL}
   font_awesome={font_awesome}
@@ -55,7 +57,7 @@ const {
 <body class="bg-white dark:bg-slate-900">
   <Header />
   {hero && (<Hero />)}
-  <Main headings={Astro.props.headings}>
+  <Main title={} headings={Astro.props.headings}>
     <slot />
   </Main>  
 </body>
