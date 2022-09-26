@@ -3,7 +3,7 @@ export default [
     title: 'Introduction',
     links: [
       { title: 'Getting started', href: '/' },
-      { title: 'Installation', href: '/docs/installation' },
+      { title: 'Faker and Factory Bot', href: '/ruby-gems/faker-with-factory-bot' },
     ],
   },
   {
