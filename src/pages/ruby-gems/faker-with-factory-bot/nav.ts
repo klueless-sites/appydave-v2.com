@@ -4,7 +4,7 @@ export default [
     title: 'Introduction',
     links: [
       { title: 'Why', href: '/ruby-gems/faker-with-factory-bot' },
-      { title: 'Installation', href: '/docs/installation' },
+      { title: 'Include FactoryBot', href: '/ruby-gems/include-factory-bot' },
     ],
   },
   {
