@@ -11,6 +11,15 @@ const DEFAULT_NAVIGATION = {
   ]
 };
 
+const QUICK_NAVIGATION = {
+  sections: [
+    {
+      title: 'Quick Links',
+      links: []
+    }
+  ]
+}
+
 export async function topicNavigation(file: string): Promise<any> {
   const configFile = topicNavigationPath(file);
 
@@ -20,13 +29,13 @@ export async function topicNavigation(file: string): Promise<any> {
 
   const json = await fsp.readFile(configFile, 'utf-8');
   const data = JSON.parse(json);
-  // console.log(JSON.stringify(data, null, 2));
+
+  data.sections.concat(QUICK_NAVIGATION.sections);
   return data;
 }
 
 
 export function topicNavigationPath(file: string): string {
-  // console.log('pageSubpath(file)       :', pageSubpath(file));
   const result = path.join(basePagePath(), pageSubpath(file), 'navigation.json');
 
   return result;
@@ -36,7 +45,7 @@ export function topicNavigationPath(file: string): string {
 export function pageSubpath(file: string): string {
   // console.log('----------------------------------------------------------------------');
   // console.log('pageSubpath.file        :', file);
-  console.log('basePagePath            :', basePagePath());
+  // console.log('basePagePath            :', basePagePath());
   
   // console.log('basename                 :', path.basename(file));
   // console.log('basename (-ext)          :', path.basename(file, '.md'));

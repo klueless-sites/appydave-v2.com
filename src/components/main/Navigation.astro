@@ -1,37 +1,11 @@
 ---
-// this works on development but not on Netlify
-// const relPath = import.meta.env.MODE === 'development' ? '../..' : '..'
-// const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
-// const navPath = `${relPath}/pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
-
 export interface Props {
   navigation: any;
 }
 
 const { navigation } = Astro.props as Props;
 
-// console.log('-[ url ]-------------------------------------------')
-// console.log(Astro.props);
-// console.log(Astro.site);
-// console.log(new URL(Astro.url.pathname, Astro.site));
-// console.log(Astro);
-// console.log(Astro.url);
-// console.log(Astro.url.pathname);
-
-// const navPath = `/src/pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
-// // const navigation = (await import(/* @vite-ignore */ navPath)).default;
-
-// // const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
-// const navigation = (await import(/* @vite-ignore */ navPath)).default;
-// console.log(JSON.stringify(navigation, null, 2));
-// // url_path
-// const menu = navigation.menu;
-// // console.log(JSON.stringify(nav, null, 2));
-// console.log(JSON.stringify(menu, null, 2));
-
-// console.log('-[ url ]-------------------------------------------')
-// console.log(Astro.url);
-// console.log(Astro.url.pathname);
+let sections = navigation.sections;
 ---
 
 <div class="hidden lg:relative lg:block lg:flex-none">
@@ -41,7 +15,7 @@ const { navigation } = Astro.props as Props;
   <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block"></div>
     <nav class="text-base lg:text-sm w-64 pr-8 xl:w-72 xl:pr-16">
       <ul role="list" class="space-y-9">
-        {navigation.sections.map((section: any) => (
+        {sections.map((section: any) => (
           <li>
             <h2 class="font-display font-medium text-slate-900 dark:text-white">{section.title}</h2>
             <ul role="list"

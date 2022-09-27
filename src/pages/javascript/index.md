@@ -5,5 +5,12 @@ pageTitle: Home | AppyDave
 description: Software Architect, Fullstack / Micro App Developer and Dancer
 ---
 
+## Ideas
 
-[https://nodejs.org/api/path.html#path_path_parse_pathstring](https://nodejs.org/api/path.html#path_path_parse_pathstring)
+### Path, FS, FS:Promise
+
+[Path Parsing](https://nodejs.org/api/path.html#path_path_parse_pathstring)
+
+### Import vs require
+
+### let vs var vs const
