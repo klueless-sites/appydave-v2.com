@@ -7,4 +7,3 @@ hero: true
 ---
 
 I love building development tools, libraries, microapps and services
-

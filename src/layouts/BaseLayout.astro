@@ -2,6 +2,7 @@
 import '~/styles/base.css';
 
 import { SITE } from '~/lib/config';
+import { basePagePath, pageSubpath, topicNavigationPath, topicNavigation } from '~/lib/util';
 
 import Head from '~/layouts/Head.astro';
 
@@ -22,6 +23,7 @@ export interface Props {
   rss_feed?: boolean;
   hero?: boolean;
 }
+
 const { 
   title = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
   pageTitle = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
@@ -36,14 +38,18 @@ const {
   hero = Astro.props.content.hero || false,
 } = Astro.props as Props;
 
-// const toc = getToc(Astro.props.headings);
-// console.log(Object.keys(Astro.props))
-// console.log(Object.keys(Astro.props.content))
-// console.log(Astro.props.headings)
-// console.log(getToc(Astro.props.headings))
-// console.log(JSON.stringify(getToc(Astro.props.headings), null, 2))
-// <pre><code>{JSON.stringify(getToc(Astro.props.headings), null, 2)}</code></pre>
+const navigation = await topicNavigation(Astro.props.content.file);
+console.log(JSON.stringify(navigation, null, 2));
+
+
+// console.log(Astro.props)
+// console.log('-----------------------B:', Astro.props.content.file)
+// console.log('pageSubpath()           :', pageSubpath(Astro.props.content.file) === '' ? '*' : pageSubpath(Astro.props.content.file));
+// console.log('basePagePath()          :', basePagePath());
+// console.log('topicNavigationPath     :', topicNavigationPath(Astro.props.content.file));
+// console.log('-----------------------E:', Astro.props.content.file);
 ---
+
 <!DOCTYPE html>
 <html lang="en">
 <Head 
@@ -57,7 +63,7 @@ const {
 <body class="bg-white dark:bg-slate-900">
   <Header />
   {hero && (<Hero />)}
-  <Main title={title} headings={Astro.props.headings}>
+  <Main title={title} headings={Astro.props.headings} navigation={navigation}>
     <slot />
   </Main>  
 </body>

@@ -8,14 +8,15 @@ import Navigation from './Navigation.astro';
 export interface Props {
   title?: string;
   headings: any[];
+  navigation: any;
 }
 
-const { title, headings } = Astro.props as Props;
+const { title, headings, navigation } = Astro.props as Props;
 
 ---
 <div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
   <div class="hidden lg:relative lg:block lg:flex-none">
-    <Navigation />
+    <Navigation navigation={navigation} />
   </div>
   <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
     <Article title={title}>

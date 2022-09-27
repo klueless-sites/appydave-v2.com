@@ -4,13 +4,30 @@
 // const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
 // const navPath = `${relPath}/pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
 
+export interface Props {
+  navigation: any;
+}
+
+const { navigation } = Astro.props as Props;
+
+// console.log('-[ url ]-------------------------------------------')
+// console.log(Astro.props);
+// console.log(Astro.site);
+// console.log(new URL(Astro.url.pathname, Astro.site));
+// console.log(Astro);
+// console.log(Astro.url);
+// console.log(Astro.url.pathname);
+
 // const navPath = `/src/pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
+// // const navigation = (await import(/* @vite-ignore */ navPath)).default;
+
+// // const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
 // const navigation = (await import(/* @vite-ignore */ navPath)).default;
-
-const navPath = `../../pages${Astro.url.pathname === '/' ? '' : Astro.url.pathname}/nav`;
-const navigation = (await import(/* @vite-ignore */ navPath)).default;
-
-// console.log(JSON.stringify(nav, null, 2));
+// console.log(JSON.stringify(navigation, null, 2));
+// // url_path
+// const menu = navigation.menu;
+// // console.log(JSON.stringify(nav, null, 2));
+// console.log(JSON.stringify(menu, null, 2));
 
 // console.log('-[ url ]-------------------------------------------')
 // console.log(Astro.url);
@@ -24,12 +41,12 @@ const navigation = (await import(/* @vite-ignore */ navPath)).default;
   <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block"></div>
     <nav class="text-base lg:text-sm w-64 pr-8 xl:w-72 xl:pr-16">
       <ul role="list" class="space-y-9">
-        {navigation.map((group: any) => (
+        {navigation.sections.map((section: any) => (
           <li>
-            <h2 class="font-display font-medium text-slate-900 dark:text-white">{group.title}</h2>
+            <h2 class="font-display font-medium text-slate-900 dark:text-white">{section.title}</h2>
             <ul role="list"
                 class="mt-2 space-y-2 border-l-2 border-slate-100 dark:border-slate-800 lg:mt-4 lg:space-y-4 lg:border-slate-200">
-              {group.links.map((link: any) => (
+              {section.links.map((link: any) => (
                 <li class="relative">
                   <a 
                     href={link.href} 
@@ -44,7 +61,8 @@ const navigation = (await import(/* @vite-ignore */ navPath)).default;
       </ul>
     </nav>
   </div>
-</div>
+</div> 
+
 
 <!-- <div class="hidden lg:relative lg:block lg:flex-none" xmen='aaaaaaaaaaaaaaaaaaaaaaaaa'>
   <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden"></div>
