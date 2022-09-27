@@ -2,10 +2,10 @@
 import '~/styles/base.css';
 
 import { SITE } from '~/lib/config';
-import { basePagePath, pageSubpath, topicNavigationPath, topicNavigation } from '~/lib/util';
+// import { basePagePath, pageSubpath, topicNavigationPath, topicNavigation } from '~/lib/util';
+import { topicNavigation } from '~/lib/util';
 
 import Head from '~/layouts/Head.astro';
-
 import Hero from '~/components/Hero.astro';
 import Header from '~/components/header/Header.astro';
 import Main from '~/components/main/Main.astro';
@@ -39,10 +39,7 @@ const {
 } = Astro.props as Props;
 
 const navigation = await topicNavigation(Astro.props.content.file);
-console.log(JSON.stringify(navigation, null, 2));
-
-
-// console.log(Astro.props)
+// console.log(JSON.stringify(navigation, null, 2));
 // console.log('-----------------------B:', Astro.props.content.file)
 // console.log('pageSubpath()           :', pageSubpath(Astro.props.content.file) === '' ? '*' : pageSubpath(Astro.props.content.file));
 // console.log('basePagePath()          :', basePagePath());
