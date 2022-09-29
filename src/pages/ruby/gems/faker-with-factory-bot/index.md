@@ -3,7 +3,6 @@ layout: ~/layouts/BaseLayout.astro
 title: Using Faker with FactoryBot
 # pageTitle: Factory Bot - Guide | AppyDave
 # description:
-tags: ['ruby', 'ruby-gems', 'factory-bot', 'faker', 'rails']
 ---
 
 Faker and FactoryBot are useful libraries for creating test, seed and sample data for your tests or application.

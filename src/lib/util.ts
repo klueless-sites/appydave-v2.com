@@ -15,7 +15,32 @@ const QUICK_NAVIGATION = {
   sections: [
     {
       title: 'Quick Links',
-      links: []
+      links: [
+        {
+          title: 'Home',
+          href: '/'
+        },
+        {
+          title: 'astrojs',
+          href: '/astrojs'
+        },
+        {
+          title: 'Faker with Factorybot',
+          href: '/ruby/gems/faker-with-factory-bot'
+        },
+        {
+          title: 'Javascript',
+          href: '/javascript'
+        },
+        {
+          title: 'Ideas',
+          href: '/ideas'
+        },
+        {
+          title: 'Deep -> Hello',
+          href: '/deep/hello'
+        }
+      ]
     }
   ]
 }
@@ -23,17 +48,19 @@ const QUICK_NAVIGATION = {
 export async function topicNavigation(file: string): Promise<any> {
   const configFile = topicNavigationPath(file);
 
-  if (!fs.existsSync(configFile)) {
-    return DEFAULT_NAVIGATION;
+  let data = structuredClone(DEFAULT_NAVIGATION);
+
+  if (fs.existsSync(configFile)) {
+    const json = await fsp.readFile(configFile, 'utf-8');
+    data = JSON.parse(json);
   }
 
-  const json = await fsp.readFile(configFile, 'utf-8');
-  const data = JSON.parse(json);
-
-  data.sections.concat(QUICK_NAVIGATION.sections);
+  data.sections.push(...QUICK_NAVIGATION.sections);
+  // console.log(data.sections.length);
+  // console.log(JSON.stringify(data, null, 2));
+  
   return data;
 }
-
 
 export function topicNavigationPath(file: string): string {
   const result = path.join(basePagePath(), pageSubpath(file), 'navigation.json');

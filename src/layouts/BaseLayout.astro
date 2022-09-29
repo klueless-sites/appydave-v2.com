@@ -25,7 +25,7 @@ export interface Props {
 }
 
 const { 
-  title = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
+  title = Astro.props.content.title || SITE.title,
   pageTitle = Astro.props.content.pageTitle || Astro.props.content.title || SITE.title,
   description = Astro.props.content.description || SITE.description,
   image,
@@ -48,7 +48,7 @@ const navigation = await topicNavigation(Astro.props.content.file);
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class='scroll-smooth'>
 <Head 
   title={pageTitle}
   description={description}

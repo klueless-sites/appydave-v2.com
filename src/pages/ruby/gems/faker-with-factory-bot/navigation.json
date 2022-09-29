@@ -1,0 +1,41 @@
+{
+  "topic": {
+    "title": "Using Faker with FactoryBot",
+    "xxx": "I think in this area I want to put the SEO keywords, description and other useful data that is needed across the topic",
+    "tags": ["ruby", "ruby/gems", "factory-bot", "faker", "rails"]
+  },
+  "sections": [
+    {
+      "title": "Introduction",
+      "links": [
+        { "title": "Faker with FactoryBot", "href": "/ruby/gems/faker-with-factory-bot" },
+        { "title": "Static vs Random", "href": "/ruby/gems/faker-with-factory-bot/static-vs-random-data-in-tests" },
+        { "title": "Include FactoryBot", "href": "/ruby/gems/faker-with-factory-bot/include-factory-bot" }
+      ]
+    },
+    {
+      "title": "Basic Factories",
+      "links": [
+        { "title": "Setup a Basic Factory", "href": "/ruby/gems/faker-with-factory-bot/basic-factory" },
+        { "title": "Using aliases", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-aliases" },
+        { "title": "Using traits", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-traits" },
+        { "title": "Using nested (or sub) factories", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-nesting" },
+        { "title": "Use cases", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-usecases" },
+        { "title": "Why", "href": "/ruby/gems/faker-with-factory-bot" },
+        { "title": "Why", "href": "/ruby/gems/faker-with-factory-bot" }
+      ]
+    },
+    {
+      "title": "Creating Test Data",
+      "links": [
+        { "title": "Unit Test Factory -> Simple Model", "href": "/ruby/gems/faker-with-factory-bot/factory-simple-model-unit-test"}
+      ]
+    },
+    {
+      "title": "Creating Sample Data",
+      "links": [
+        { "title": "Sample Data Factory -> Simple Model", "href": "/ruby/gems/faker-with-factory-bot/factory-simple-model-sample-data"}
+      ]
+    }
+  ]
+}

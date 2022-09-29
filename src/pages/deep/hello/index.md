@@ -1,6 +1,6 @@
 ---
 layout: ~/layouts/BaseLayout.astro
-title: Hello
+title: Deep -> Hello
 ---
 
 I love building development tools, libraries, microapps and services
