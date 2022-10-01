@@ -23,3 +23,7 @@ The need to be converted into TOC
 
 - /Users/davidcruwys/dev/kgems/astro_concepts/lib/astro_concepts
 - 
+
+## Build a GitHub Profile
+
+- [Creative readme for your github profile](https://codewithgauri.tech/how-to-build-creative-readme-for-your-github-profile)

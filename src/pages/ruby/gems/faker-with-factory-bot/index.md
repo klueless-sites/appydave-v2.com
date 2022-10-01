@@ -7,7 +7,6 @@ title: Using Faker with FactoryBot
 
 Faker and FactoryBot are useful libraries for creating test, seed and sample data for your tests or application.
 
-H1 
 ## Overview
 
 This article will cover common use-cases for using Faker and FactoryBot.

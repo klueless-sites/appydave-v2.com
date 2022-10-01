@@ -18,3 +18,16 @@ How do I open a link - [Faker](https://github.com/faker-ruby/faker) in a new tab
 
 How do I do I color code internal vs external links, e.g. I want [External](https://github.com/faker-ruby/faker) 
 to be a soft gray so that people can click on it, but it is not obvious and I want [Internal](https://appydave.com/ruby/gems/faker) 
+
+### Code Templates/Repos
+
+[Minimal Starter Kit](https://github.dev/littlesticks/astro-minimal-starter)
+[Planet of the Web](https://github.com/planetoftheweb/astro)
+[AirTable Repo](https://github.dev/perkinsjr/astro-airtable)
+[Simple SEO Repo](https://github.dev/perkinsjr/simple-astro-seo)
+
+### YouTube Videos
+
+[Build a static blog with Astro, a new kind of frontend framework](https://www.youtube.com/watch?v=CzMQmkce94g)
+[AirTable and NextJS](https://www.youtube.com/watch?v=K1-ANCLd47k)
+[Create a Custom Blog](https://www.youtube.com/watch?v=3yip2wSRX_4)

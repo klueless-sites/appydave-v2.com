@@ -17,16 +17,20 @@ const QUICK_NAVIGATION = {
       title: 'Quick Links',
       links: [
         {
-          title: 'Home',
-          href: '/'
-        },
-        {
-          title: 'astrojs',
-          href: '/astrojs'
+          title: 'Sitemap (debug)',
+          href: '/sitemap'
         },
         {
           title: 'Faker with Factorybot',
           href: '/ruby/gems/faker-with-factory-bot'
+        },
+        {
+          title: 'Ruby GEMs',
+          href: '/ruby/gems'
+        },
+        {
+          title: 'astrojs',
+          href: '/astrojs'
         },
         {
           title: 'Javascript',
@@ -37,6 +41,18 @@ const QUICK_NAVIGATION = {
           href: '/ideas'
         },
         {
+          title: 'Peers',
+          href: '/peers'
+        },
+        {
+          title: 'Tailwind',
+          href: '/tailwind'
+        },
+        {
+          title: 'LoCode/NoCode',
+          href: '/locode'
+        },
+        {
           title: 'Deep -> Hello',
           href: '/deep/hello'
         }
@@ -45,8 +61,15 @@ const QUICK_NAVIGATION = {
   ]
 }
 
-export async function topicNavigation(file: string): Promise<any> {
+// console.log(Astro.props).content.file
+export async function topicNavigation(props: Record<string, number | string | any>): Promise<any> {
+  const file: string = props.content.file;
+// export async function topicNavigation(file: string): Promise<any> {
+  // const fetchedArticle = await import.meta.glob("../pages/posts/*.md");
+
   const configFile = topicNavigationPath(file);
+  // console.log(file);
+  // console.log(configFile);
 
   let data = structuredClone(DEFAULT_NAVIGATION);
 
@@ -60,6 +83,17 @@ export async function topicNavigation(file: string): Promise<any> {
   // console.log(JSON.stringify(data, null, 2));
   
   return data;
+}
+
+export function slugify(text: string): string {
+  return text
+    .toString()                           // Cast to string (optional)
+    .normalize('NFKD')            // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
+    .toLowerCase()                  // Convert the string to lowercase letters
+    .trim()                                  // Remove whitespace from both sides of a string (optional)
+    .replace(/\s+/g, '-')            // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
 }
 
 export function topicNavigationPath(file: string): string {
@@ -86,11 +120,17 @@ export function pageSubpath(file: string): string {
 }
 
 export function basePagePath(): string {
-  const result = new URL('../pages/', import.meta.url).pathname;
+  return '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
+  // const result = new URL('../pages/', import.meta.url).pathname;
+  // const result = '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
+
   // console.log('basePagePath            :', result);
   // console.log(result === '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/' ? "GOOD" : "******* BAD *******");
-  if (result !== '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/') {
-    console.log("******* BAD *******");
-  }
-  return result;
+  // if (result !== '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/') {
+  //   console.log("******* BAD *******1");
+  //   console.log(result);
+  //   console.log('/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/');
+  //   console.log("******* BAD *******2");
+  // }
+  // return result;
 }

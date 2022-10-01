@@ -6,6 +6,12 @@
   },
   "sections": [
     {
+      "title": "ToDo",
+      "links": [
+        { "title": "DidIt", "href": "/ruby/gems/faker-with-factory-bot/didit"}
+      ]
+    },
+    {
       "title": "Introduction",
       "links": [
         { "title": "Faker with FactoryBot", "href": "/ruby/gems/faker-with-factory-bot" },
@@ -20,9 +26,16 @@
         { "title": "Using aliases", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-aliases" },
         { "title": "Using traits", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-traits" },
         { "title": "Using nested (or sub) factories", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-with-nesting" },
+        { "title": "Traits vs nested factories", "href": "/ruby/gems/faker-with-factory-bot/basic-traits-vs-nested-factory" },
         { "title": "Use cases", "href": "/ruby/gems/faker-with-factory-bot/basic-factory-usecases" },
-        { "title": "Why", "href": "/ruby/gems/faker-with-factory-bot" },
-        { "title": "Why", "href": "/ruby/gems/faker-with-factory-bot" }
+        { "title": "", "href": "/ruby/gems/faker-with-factory-bot" }
+      ]
+    },
+    {
+      "title": "Common Scenarios",
+      "links": [
+        { "title": "Traits with nested factories", "href": "/ruby/gems/faker-with-factory-bot/common/mix-traits-with-nested-factories" },
+        { "title": "", "href": "/ruby/gems/faker-with-factory-bot" }
       ]
     },
     {
@@ -35,6 +48,19 @@
       "title": "Creating Sample Data",
       "links": [
         { "title": "Sample Data Factory -> Simple Model", "href": "/ruby/gems/faker-with-factory-bot/factory-simple-model-sample-data"}
+      ]
+    },
+    {
+      "title": "Sequences",
+      "links": [
+        { "title": "Global", "href": "/ruby/gems/faker-with-factory-bot/sequence/global"},
+        { "title": "Inline", "href": "/ruby/gems/faker-with-factory-bot/sequence/inline"}
+      ]
+    },
+    {
+      "title": "ToDo",
+      "links": [
+        { "title": "To-do", "href": "/ruby/gems/faker-with-factory-bot/todo"}
       ]
     }
   ]

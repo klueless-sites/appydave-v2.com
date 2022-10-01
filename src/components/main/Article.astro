@@ -1,16 +1,14 @@
 ---
-import { Section } from "~/lib/types";
-
 import Prose from '../Prose.astro'
 import ArticleSection from './ArticleSection.astro'
 import ArticleTitle from './ArticleTitle.astro'
 
 export interface Props {
-  section?: Section;
+  section?: string;
   title?: string;
 }
 
-const { section = new Section('xmen are cool'), title = "It's good to be the king" } = Astro.props as Props;
+const { section = 'xmen are cool', title = "It's good to be the king" } = Astro.props as Props;
 
 ---
 <article>

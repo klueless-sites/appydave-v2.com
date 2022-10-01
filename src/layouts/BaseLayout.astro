@@ -2,6 +2,12 @@
 import '~/styles/base.css';
 
 import { SITE } from '~/lib/config';
+import sitemap from '~/lib/sitemap/root';
+import AppContext from '~/lib/app_context';
+
+console.log('xxx')
+const context = new AppContext(sitemap());
+
 // import { basePagePath, pageSubpath, topicNavigationPath, topicNavigation } from '~/lib/util';
 import { topicNavigation } from '~/lib/util';
 
@@ -38,7 +44,21 @@ const {
   hero = Astro.props.content.hero || false,
 } = Astro.props as Props;
 
-const navigation = await topicNavigation(Astro.props.content.file);
+interface PageFrontmatter {
+  file: string;
+  title: string;
+  pageId?: string;
+}
+
+// import PageData from '~/lib/page_data';
+
+// const pageData = new PageData();
+
+// const pages = pageData.buildData(await Astro.glob('../pages/**/*.md*'));
+// const pages2 = await pageData.buildDataViaPath('../pages/**/*.md*', Astro);
+
+// console.log(...pages);
+const navigation = await topicNavigation(Astro.props);
 // console.log(JSON.stringify(navigation, null, 2));
 // console.log('-----------------------B:', Astro.props.content.file)
 // console.log('pageSubpath()           :', pageSubpath(Astro.props.content.file) === '' ? '*' : pageSubpath(Astro.props.content.file));
@@ -60,7 +80,7 @@ const navigation = await topicNavigation(Astro.props.content.file);
 <body class="bg-white dark:bg-slate-900">
   <Header />
   {hero && (<Hero />)}
-  <Main title={title} headings={Astro.props.headings} navigation={navigation}>
+  <Main title={title} headings={Astro.props.headings} navigation={navigation} context={context}>
     <slot />
   </Main>  
 </body>
