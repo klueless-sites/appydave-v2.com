@@ -1,5 +1,4 @@
 ---
-import Heading from '~/lib/toc/heading';
 import CreateToc from '~/lib/toc/create_toc';
 
 export interface Props {
@@ -9,15 +8,14 @@ export interface Props {
 
 const { title, headings } = Astro.props as Props;
 
+// console.log(JSON.stringify(headings, null, 2));
+console.log(headings);
 let filterHeadings = headings
   .filter((heading) => heading.depth === 2 || heading.depth === 3)
-  .map((heading, index) => new Heading(heading.depth, index, heading.text, { slug: heading.slug } ));
 
-const toc = new CreateToc(filterHeadings);
-toc.process();
-let tocHeadings = toc.data();
+let tocHeadings = (new CreateToc()).process(filterHeadings);
 
-// console.log(JSON.stringify(tocHeadings, null, 2));
+console.log(JSON.stringify(tocHeadings, null, 2));
 ---
 
 <nav aria-labelledby="on-this-page-title" class="w-56">
