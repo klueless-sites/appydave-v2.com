@@ -1,0 +1,15 @@
+{
+  "topic": {
+    "title": "Tools",
+    "tags": ["tools", "javascript"]
+  },
+  "sections": [
+    {
+      "title": "Introduction",
+      "links": [
+        { "title": "Overview", "href": "/tools" },
+        { "title": "List de-duplicator", "href": "/tools/de-duplicator" }
+      ]
+    }
+  ]
+}

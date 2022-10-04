@@ -1,0 +1,21 @@
+{
+  "topic": {
+    "title": "View Component",
+    "tags": ["ruby", "ruby/gems", "view_component"]
+  },
+  "sections": [
+    {
+      "title": "Introduction",
+      "links": [
+        { "title": "My GEMs", "href": "/ruby/gems/klueless" },
+        { "title": "GPT3 Builder", "href": "/ruby/gems/klueless/gpt3-builder" }
+      ]
+    },
+    {
+      "title": "KlueLess GEMs",
+      "links": [
+        { "title": "K-Manager", "href": "/ruby/gems/klueless/k_manager" }
+      ]
+    }
+  ]
+}

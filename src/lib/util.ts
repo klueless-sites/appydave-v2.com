@@ -45,6 +45,10 @@ const QUICK_NAVIGATION = {
           href: '/peers'
         },
         {
+          title: 'Tools',
+          href: '/tools'
+        },
+        {
           title: 'Tailwind',
           href: '/tailwind'
         },

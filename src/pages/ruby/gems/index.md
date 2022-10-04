@@ -64,3 +64,12 @@ title: Ruby GEMs
 ## Admin Systems
 
 [AVO](https://www.youtube.com/results?search_query=rails+avo)
+
+## Bundler
+
+List of useful bundler commands
+
+```bash
+rm -rf Gemfile.lock && bi && bundler-audit
+rm Gemfile.lock && bi && bundle outdated && gs
+```
