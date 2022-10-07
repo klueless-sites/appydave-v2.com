@@ -66,10 +66,10 @@ km2 new -t ruby_gem \
 ### Setup project plan
 
 ```bash
-# I tend to use this setup when I want to build project plans into my GEMs using draw-io
+# I tend to use this setup when I want to add a .builder into my GEMs with basic tooling
 
 km2 new \
-  --description "Add draw-io graph support"
+  --description "Add draw-io graph support for project plan and domain modeling"
 ```
 
 ### Setup a ruby gem

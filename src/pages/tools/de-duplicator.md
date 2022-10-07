@@ -1,6 +1,6 @@
 ---
 layout: ~/layouts/BaseLayout.astro
-title: Online Tools
+title: List DeDuplicate - Sort - Online Tools
 ---
 
 ## Overview

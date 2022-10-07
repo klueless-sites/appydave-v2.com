@@ -8,7 +8,8 @@
       "title": "Introduction",
       "links": [
         { "title": "Overview", "href": "/tools" },
-        { "title": "List de-duplicator", "href": "/tools/de-duplicator" }
+        { "title": "List de-duplicator", "href": "/tools/de-duplicator" },
+        { "title": "Case changer", "href": "/tools/case-change" }
       ]
     }
   ]

@@ -8,7 +8,8 @@
       "title": "Introduction",
       "links": [
         { "title": "My GEMs", "href": "/ruby/gems/klueless" },
-        { "title": "GPT3 Builder", "href": "/ruby/gems/klueless/gpt3-builder" }
+        { "title": "GPT3 Builder", "href": "/ruby/gems/klueless/gpt3-builder" },
+        { "title": "Rails App Generator", "href": "/ruby/gems/klueless/rails-app-generator" }
       ]
     },
     {

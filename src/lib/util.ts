@@ -21,10 +21,6 @@ const QUICK_NAVIGATION = {
           href: '/sitemap'
         },
         {
-          title: 'Faker with Factorybot',
-          href: '/ruby/gems/faker-with-factory-bot'
-        },
-        {
           title: 'Ruby GEMs',
           href: '/ruby/gems'
         },
@@ -57,8 +53,12 @@ const QUICK_NAVIGATION = {
           href: '/locode'
         },
         {
-          title: 'Deep -> Hello',
-          href: '/deep/hello'
+          title: 'Open AI',
+          href: '/openai'
+        },
+        {
+          title: 'New Home',
+          href: '/home'
         }
       ]
     }
