@@ -8,7 +8,8 @@
       "title": "Gems",
       "links": [
         { "title": "Faker with FactoryBot", "href": "/ruby/gems/faker-with-factory-bot" },
-        { "title": "View Component", "href": "/ruby/gems/view-component" }
+        { "title": "View Component", "href": "/ruby/gems/view-component" },
+        { "title": "RSpec", "href": "/ruby/gems/rspec" }
       ]
     },
     {

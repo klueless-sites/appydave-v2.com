@@ -13,7 +13,7 @@ const { section = 'xmen are cool', title = "It's good to be the king" } = Astro.
 ---
 <article>
   <header class="mb-9 space-y-1">
-    {section && (<ArticleSection section={section} />)}
+    {section && (<ArticleSection section='{section}' />)}
     {title && (<ArticleTitle title={title} />)}
   </header>
   <Prose>

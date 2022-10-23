@@ -45,6 +45,10 @@ const QUICK_NAVIGATION = {
           href: '/tools'
         },
         {
+          title: 'Git',
+          href: '/git'
+        },
+        {
           title: 'Tailwind',
           href: '/tailwind'
         },

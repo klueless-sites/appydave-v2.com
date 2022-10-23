@@ -3,17 +3,30 @@ layout: ~/layouts/BaseLayout.astro
 title: View Component
 ---
 
+## View Components vs Partials and Presenters
+
 ## Overview
+
 
 A framework for building reusable, testable & encapsulated view components in Ruby on Rails.
 
 Use view_component to DRY up views via a reusable component oriented system.
 
+<!-- 
 - [Gem](https://github.com/viewcomponent/view_component)
 - [Site](https://viewcomponent.org/)
 - [Article](https://dev.to/nejremeslnici/from-partials-to-viewcomponents-writing-reusable-front-end-code-in-rails-1c9o)
+ -->
 
 You can also browse, develop, test & document ViewComponents using [Lookbook](https://lookbook.build/guide/)
+
+### What's a ViewComponent
+
+![](/images/ruby/gems/view-component/view-component-overview.png)
+
+### Why use ViewComponents?
+
+ViewComponents work best for templates that are reused or benefit from being tested directly. Partials and templates with significant amounts of embedded Ruby often make good ViewComponents.
 
 ## Goal: Clean up three partials
 
@@ -166,7 +179,7 @@ end
 
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-  <h4 class="modal-title text-left"><%= t("manage_tags_for", name: @inquiry.name ) %> </h4>
+  <h4 class="modal-title text-left"><%= t("manage_tags_for", name: @name ) %> </h4>
 </div>
 <div class="modal-body">
 
@@ -213,7 +226,13 @@ Like Storybook, Lookbook is a frontend workshop for building UI components and p
 
 ![](https://github.com/allmarkedup/lookbook/raw/main/.github/assets/lookbook_screenshot_v1.0_beta.png)
 
-## Pricing Chart (Partials)
+## Rails Partials - Pricing Chart
+
+However, they are not that great if you need to add some non-trivial logic – a template with more than a few control statements can quickly become messy.
+
+A partial template freely recognizes all instance variables (@variable) and this makes the template tightly coupled with the controller layer where these variables are typically defined. Suppose we’d use a partial template on five different pages: we would have to define the same instance variable(s) in all five actions of the corresponding controllers. Even worse, instance variables default to nil so forgetting to properly set a variable does not raise an exception, instead it can just lead to an unexpected blank output.
+
+Partials and helpers may play together well but they still don’t make a clear unit
 
 ### Pricing chart using partials
 
@@ -273,9 +292,44 @@ Like Storybook, Lookbook is a frontend workshop for building UI components and p
 </div>
 ```
 
-## Pricing Chart (View Controllers)
+## View Controllers - Pricing Chart
 
-### Home controller setup
+![](/images/ruby/gems/view-component/price-chart-overview.png)
+
+View Components have an explicit home in the code base. By ”having a home“ we not only mean that view components reside under the app/components folder but also the fact that the code for the component behavior as well as its template live next to each other, in the same place in the code base
+
+The component ruby file supports logic of any complexity. A component is just a ruby class so we can leverage all features of object-oriented programming in them such as private methods, composition, inheritance and just about anything else, if needed. The template file, on the other hand, can stay virtually logic-less.
+
+### Home page view
+
+Pricing chart component getting invoked on a page using *render* or *helper* methods
+
+```erb
+<div class="border-b border-gray-200 py-5">
+  <h3 class="text-lg font-medium leading-6 text-gray-900">View component</h3>
+  <p class="mt-2 max-w-4xl text-sm text-gray-500">View Components are like partials, but with the added benefit of a class that can control logic and easily tested</p>
+</div>
+
+<%= render(PriceChartComponent.new(@pricing_data1)) %>
+
+<%= price_chart(@pricing_data2) %>
+
+<%= price_chart(@pricing_data3) %>
+```
+
+### Price chart helper
+
+#### helpers/price_chart_helper.rb
+
+```ruby
+module PriceChartHelper
+  def price_chart(chart_data)
+    render PriceChartComponent.new(chart_data)
+  end
+end
+```
+
+### Home controller
 
 ```rb
 class HomeController < ApplicationController
@@ -289,7 +343,11 @@ class HomeController < ApplicationController
     @pricing_data3 = pricing_data_poro(2)
     @pricing_data3.title = 'Only 2 Plans'
   end
+```
 
+### Pricing data
+
+```ruby
   private
 
   def pricing_data_poro(take_cards = nil)
@@ -298,9 +356,7 @@ class HomeController < ApplicationController
     # OpenStruct is not a good practice: But this makes the HASH and feel like a PORO model
     JSON.parse(data.to_json, object_class: OpenStruct)
   end
-```
 
-```ruby
   def pricing_data
     {
       title: 'Pricing Plans via Components',
@@ -334,22 +390,38 @@ class HomeController < ApplicationController
 end
 ```
 
-### Pricing chart using components
 
-```erb
-<div class="border-b border-gray-200 py-5">
-  <h3 class="text-lg font-medium leading-6 text-gray-900">View component</h3>
-  <p class="mt-2 max-w-4xl text-sm text-gray-500">View Components are like partials, but with the added benefit of a class that can control logic and easily tested</p>
-</div>
+### Price card component
 
-<%= render(PriceChartComponent.new(@pricing_data1)) %>
+Setup the business logic for a single price card.
 
-<%= render(PriceChartComponent.new(@pricing_data2)) %>
+Provide some dynamic logic that effects styling.
 
-<%= render(PriceChartComponent.new(@pricing_data3)) %>
+#### price_card_component.rb
+
+```ruby
+class PriceCardComponent < ViewComponent::Base
+  attr_reader :card
+
+  def initialize(card)
+    @card = card
+    super
+  end
+
+  def card_class
+    highlight = card.highlight == true ? 'border-7 border-red-500' 
+                                       : 'border-gray-200'
+
+    "#{highlight} divide-y divide-gray-200 rounded-lg border border-7 shadow-sm"
+  end
+end
 ```
 
-### price_card_component.html.erb
+### Price card view
+
+![](/images/ruby/gems/view-component/price-card.png)
+
+#### price_card_component.html.erb
 
 ```erb
 <div class="<%= card_class %>">
@@ -378,40 +450,9 @@ end
 </div>
 ```
 
-### price_card_component.rb
+### Price chart component
 
-```ruby
-class PriceCardComponent < ViewComponent::Base
-  attr_reader :card
-
-  def initialize(card)
-    @card = card
-    super
-  end
-
-  def card_class
-    highlight = card.highlight == true ? 'border-7 border-red-500' : 'border-gray-200'
-    "divide-y divide-gray-200 rounded-lg border border-7 shadow-sm#{highlight}"
-  end
-end
-```
-
-### price_chart_component.html.erb
-
-```erb
-<div class="bg-white">
-  <div class="mx-auto max-w-7xl py-24 px-4 sm:px-6 lg:px-8">
-    <div class="sm:align-center sm:flex sm:flex-col">
-      <h1 class="text-5xl font-bold tracking-tight text-gray-900 sm:text-center"><%= @chart.title %></h1>
-    </div>
-    <div class="<%= card_list_class %>">
-      <% @chart.cards.each do |card| %>
-        <%= render PriceCardComponent.new(card) %>
-      <% end %>
-    </div>
-  </div>
-</div>
-```
+Handle the display of a list of price cards with custom CSS styling based on the number of price cards provided.
 
 #### price_chart_component.rb
 
@@ -434,6 +475,338 @@ class PriceChartComponent < ViewComponent::Base
     return CARDS_ODD if @chart.cards.length.odd?
 
     CARDS_EVEN
+  end
+end
+```
+
+### Price chart view
+
+![](/images/ruby/gems/view-component/price-chart.png)
+
+#### price_chart_component.html.erb
+
+```erb
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl py-24 px-4 sm:px-6 lg:px-8">
+    <div class="sm:align-center sm:flex sm:flex-col">
+      <h1 class="text-5xl font-bold tracking-tight text-gray-900 sm:text-center"><%= @chart.title %></h1>
+    </div>
+    <div class="<%= card_list_class %>">
+      <% @chart.cards.each do |card| %>
+        <%= render PriceCardComponent.new(card) %>
+      <% end %>
+    </div>
+  </div>
+</div>
+```
+
+## View Controllers - Unit Tests
+
+![](/images/ruby/gems/view-component/price-card-unit-test.png)
+
+### Setup RSpec data
+
+```ruby
+require "rails_helper"
+
+RSpec.describe PriceCardComponent, type: :component do
+  let(:component) { described_class.new(card) }
+  let(:card) { JSON.parse(data.to_json, object_class: OpenStruct) }
+
+  # play with :data to test different scenarios
+  let(:data) { raw_data }
+
+  let(:raw_data) do
+    {
+      price: '$12',
+      heading: 'Hobby',
+      description: 'All the basics for having fun and make a few bucks',
+      items: ['Potenti felis, in cras at at ligula nunc.', 'Orci neque eget pellentesque.']
+    }
+  end
+```
+
+### Test Component class
+
+```ruby
+  context '.card' do
+    subject { component.card }
+  
+    it { is_expected.not_to be_nil }
+
+    it 'has attributes' do
+      expect(component.card.price).not_to be_nil
+      expect(component.card.heading).not_to be_nil
+      expect(component.card.description).not_to be_nil
+      expect(component.card.items).not_to be_nil
+      expect(component.card.items).to be_a(Array)
+    end    
+  end
+
+  context '.card_class' do
+    subject { component.card_class }
+
+    it { is_expected.to eq('divide-y divide-gray-200 rounded-lg border border-7 shadow-sm border-gray-200') }
+  
+    context 'when card.highlight is true' do
+      let(:data) { raw_data.merge(highlight: true) }
+
+      it { is_expected.to eq('divide-y divide-gray-200 rounded-lg border border-7 shadow-sm border-red-500') }
+    end
+  end
+```
+
+### Check rendered HTML
+
+```ruby
+  context '#render' do
+    subject { page }
+    before { render_inline(component) }
+
+    it { is_expected.to have_text("All the basics for having fun and make a few bucks") }
+
+    context 'when list item exists' do
+      it { is_expected.to have_css('li.flex.space-x-3') }
+    end
+
+    context 'when list item does not exist' do
+      let(:data) { raw_data.merge(items: []) }
+
+      it { is_expected.not_to have_css('li.flex.space-x-3') }
+    end
+  end
+end
+```
+
+### Outcome
+
+![](/images/ruby/gems/view-component/price-chart.png)
+
+## Presenters - Select2 Dropdown
+
+### Base presenter
+
+```ruby
+class BasePresenter
+  def call
+    raise NoMethodError, "implement the call method in your presenter object"
+  end
+
+  private
+
+  def validate_outputs
+    @required_outputs.each do |output|
+      if @outputs[output].nil?
+        raise ArgumentError, "#{self.class} missing required output '#{output}'"
+      end
+    end
+  end
+
+  class << self
+    def present(*arguments)
+      self.new(*arguments).call
+    end
+
+    def outputs(*outputs, required: false)
+      outputs.each do |output|
+        define_method(output) do
+          @outputs[output]
+        end
+        define_method("#{output}=") do |value|
+          @outputs[output] = value
+        end
+      end
+      self.required_outputs.concat(outputs) if required
+    end
+
+    def required_outputs
+      @required_outputs ||= []
+    end
+
+    def inherited(subclass)
+      interceptor = const_set("#{subclass.name.split('::').last}Interceptor", Module.new)
+      interceptor.define_method(:call) do
+        super()
+        validate_outputs
+        OpenStruct.new(@outputs)
+      end
+      interceptor.define_method(:initialize) do |*arguments|
+        @outputs = {}
+        @required_outputs = subclass.required_outputs
+        super(*arguments)
+      end
+      subclass.prepend(interceptor)
+    end
+  end
+end
+```
+
+### Select2 presentor
+
+```ruby
+class SelectPresenter < BasePresenter
+  outputs :dom_id, :select_arguments, :config, required: true
+
+  def initialize(*select_arguments)
+    @select_arguments = *select_arguments
+  end
+
+  def call
+    set_dom_id
+    set_select_arguments
+    set_config
+  end
+
+  private
+
+  def set_dom_id
+    self.dom_id = sanitize_to_id(@select_arguments.first)
+  end
+
+  def set_select_arguments
+    self.select_arguments = @select_arguments
+  end
+
+  def set_config
+    self.config = {
+      theme: "bootstrap",
+      minimumResultsForSearch: 99999
+    }
+  end
+
+  def sanitize_to_id(name)
+    name.to_s.delete("]").tr("^-a-zA-Z0-9:.", "_")
+  end
+end
+```
+
+### Select2 view
+
+```erb
+<%= select_tag(*vm.select_arguments) %>
+
+<script type="text/javascript">
+  if (typeof $ !== 'undefined' && typeof $.fn.select2 !== 'undefined') {
+    $("#<%= vm.dom_id %>").select2(<%= vm.config.to_json.html_safe %>);
+  }
+</script>
+
+<% content_for :page_scripts do %>
+  <script type="text/javascript">
+    if (!$("#<%= vm.dom_id %>").data('select2')) {
+      $("#<%= vm.dom_id %>").select2(<%= vm.config.to_json.html_safe %>);
+    }
+  </script>
+<% end %>
+```
+
+### Select2 helper
+
+```ruby
+module SelectHelper
+  def select2_tag(*arguments)
+    render "_presentables/select", vm: SelectPresenters.present(*arguments)
+  end
+
+  def sales_rep_select(name, selected, options={})
+    render "_presentables/select", vm: SalesRepSelectPresenter.present(name, @tenant, selected, options)
+  end
+end
+```
+
+### Select2 (Custom presenter)
+
+> Should SalesRepSelectPresenter use composition over inheritence
+
+```ruby
+class SalesRepSelectPresenter < SelectPresenter
+  def initialize(name, tenant, selected, options={})
+    @name = name
+    @tenant = tenant
+    @selected = selected
+    @options = options
+    @options[:user_list] = :all if !valid_user_list_options.include?(@options[:user_list])
+    @options[:extra_entries] = {} if @options[:extra_entries].nil?
+    @options[:extra_entries] = {all: true, empty: true}.merge(@options[:extra_entries])
+  end
+
+  private
+
+  def set_dom_id
+    self.dom_id = sanitize_to_id(@name)
+  end
+
+  def set_select_arguments
+    list = []
+    context_ids = []
+    user_ids = []
+    location_ids = []
+
+    if [SalesRep, User, Location].include?(@selected.class)
+      @selected = SalesRep.context_identifier(@selected)
+    end
+
+    sales_reps = SalesRep.unscoped.where(tenant: @tenant, deleted: false).where(add_in_table_list: true)
+    sales_reps.each do |sales_rep|
+      selected_sales_rep = false
+      context = sales_rep
+      context = sales_rep.user if sales_rep.user
+      context = sales_rep.location if @tenant.sales_rep_for_locations && sales_rep.location
+
+      id = SalesRep.context_identifier(context)
+
+      should_show = true
+      case context.class.to_s
+      when "SalesRep"
+        should_show = false if [:users, :mapped].include?(@options[:user_list])
+        name = sales_rep.name || I18n.t("unknown")
+        name = "#{name} (#{I18n.t("unmapped")})"
+      when "User"
+        should_show = false if [:unmapped].include?(@options[:user_list])
+        name = sales_rep.user.full_name
+        user_ids << context.id
+      when "Location"
+        should_show = false if [:unmapped].include?(@options[:user_list])
+        name = sales_rep.location.name
+        location_ids << context.id
+      end
+
+      next if context_ids.include?(id)
+      context_ids << id
+      list << [name, id] if should_show || id == @selected
+    end
+
+    translated_empty_text = I18n.t("no_salesrep_defined")
+    translated_all_text = I18n.t("all_users")
+    if @tenant.sales_rep_for_locations
+      @tenant.locations.each do |location|
+        next if location_ids.include?(location.id)
+        id = "l_#{location.id}"
+        name = location.name
+        list << [name, id] if [:all, :users].include?(@options[:user_list]) || id == @selected
+      end
+      translated_empty_text = I18n.t("no_location")
+      translated_all_text = I18n.t("all_locations")
+    else
+      @tenant.visible_users.each do |user|
+        next if user_ids.include?(user.id)
+        id = "u_#{user.id}"
+        name = user.full_name
+        list << [name, id] if [:all, :users].include?(@options[:user_list]) || id == @selected
+      end
+    end
+
+    list.sort_by! { |s| s.first }
+    list.unshift([translated_empty_text, "empty"]) if @options[:extra_entries][:empty]
+    list.unshift([I18n.t("none"), "none"]) if @options[:extra_entries][:none]
+    list.unshift(["- #{I18n.t("keep_current")} -", "current"]) if @options[:extra_entries][:current]
+    list.unshift([translated_all_text, "all"]) if @options[:extra_entries][:all]
+
+    self.select_arguments = [@name, ActionController::Base.helpers.options_for_select(list, @selected), @options]
+  end
+
+  def valid_user_list_options
+    [:all, :users, :sales_reps, :unmapped, :mapped]
   end
 end
 ```
