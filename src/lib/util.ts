@@ -61,6 +61,10 @@ const QUICK_NAVIGATION = {
           href: '/openai'
         },
         {
+          title: 'Docker',
+          href: '/docker'
+        },
+        {
           title: 'New Home',
           href: '/home'
         }
@@ -128,7 +132,8 @@ export function pageSubpath(file: string): string {
 }
 
 export function basePagePath(): string {
-  return '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
+  return new URL('../pages/', import.meta.url).pathname
+  // return '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
   // const result = new URL('../pages/', import.meta.url).pathname;
   // const result = '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
 
