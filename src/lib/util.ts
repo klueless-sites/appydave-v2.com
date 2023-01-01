@@ -132,6 +132,8 @@ export function pageSubpath(file: string): string {
 }
 
 export function basePagePath(): string {
+  console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+  console.log(new URL('../pages/', import.meta.url).pathname)
   return new URL('../pages/', import.meta.url).pathname
   // return '/Users/davidcruwys/dev/sites/appydave-v2.com/src/pages/';
   // const result = new URL('../pages/', import.meta.url).pathname;
